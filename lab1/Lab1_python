@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jan 16 16:49:15 2018
+
+@author: rabnawaz
+"""
+
+parrot = "It is dead, that is what is wrong with it."
+
+#question 1
+print(parrot)
+
+blankSpaceCount = parrot.count(' ')
+countLetter  = len(parrot) - blankSpaceCount
+commaCount = parrot.count(',')
+periodCount =  parrot.count('.')
+
+print("\n letter ={0} \n Blank Space ={1} \n comma = {2} \n period={3}  "
+      .format(countLetter,blankSpaceCount, commaCount,periodCount))
+
+
+#break a string
+parrotWords = parrot.split(' ')
+parrotWords
+
+#joining strinf
+parrotWords = ' '.join(parrotWords)
+parrotWords
+
+
+#question 2
+#part a
+for i in range(5,11):
+    print("The next number in the loop is {0}".format(i))
+    
+    
+
+    
+    
+
+#part b
+import random
+while True:
+    randomNumber = random.uniform(0,1)
+    if(randomNumber > 0.9):
+        break
+    print("The random {0} number is smaller than 0.9".format(round(randomNumber,2)))
+    
+
+randomNumber = random.uniform(0,1)
+while(randomNumber < 0.9):
+    print("The random {0} number is smaller than 0.9".format(round(randomNumber,2)))
+    randomNumber = random.uniform(0,1)
+    
+
+    
+#part c
+count = 0
+letterCounter = 0 
+while(count < len(parrot)):    
+    if parrot[count] not in (' ',",","."):
+        letterCounter = letterCounter + 1
+    count = count + 1
+
+print("Letter Count = ",letterCounter)
+
+#part d   
+names = ['Ludwig', 'Rosa', 'Mona', 'Amadeus']
+for name in names:
+    print("The name {0} is nice".format(name))
+    
+    
+
+nLetters = []
+for name in names:
+    nLetters.append(len(name))
+nLetters
+#part f
+
+l = [print("The name {0} is nice".format(name)) for name in names]
+
+
+#part g
+shortLong = ["Long" if len(name) > 4  else "Short"  for name in names]
+print(shortLong)
+
+
+#part h
+for i in range(0,len(shortLong)):
+    print("The name {0} is a {1} name".format(names[i],shortLong[i]))
+    
+    
+
+#question 3
+
+#part a creating a dictinary 
+
+amadeus = {"gender": "male","algebra" : 8, "history": 13}
+
+
+#part b
+rosa = {"gender": "female","algebra" : 19, "history": 22}
+monda = {"gender": "female","algebra" : 6, "history": 27}
+ludWig = {"gender": "male","algebra" : 12, "history": 18}
+
+
+#part c 
+students = {"Amadeus": amadeus, "Rose": rosa, "Monda" : monda, "Ludwig" :ludWig}
+students['Amadeus']['history']
+students
+
+#part d
+karl = {"gender": "male","algebra" : 14, "history": 10}
+students["karl"] = karl
+students
+
+
+
+#part e
+for k, v in students.items():
+    print("Student {0} scored {1} on the Algebra exam and {2} on the History exam".format(k,v["algebra"],v["history"] ))
+
+
+#part f
+#dict(zip(names,shortLong))
+zipDic = zip(names,shortLong)
+
+l = { k: v for (k,v) in zipDic }
+l
+
+
+#assignment 4 
+#part a
+
+
+import math
+
+def circle_area(radius):
+    return(math.pi * (radius**2))
+    
+    
+circle_area(12)
+
+#part b    
+def circle_area_safe(radius):
+    if(radius < 0):
+        print("Radius must be positive")
+        return None
+    else:
+        return circle_area(radius)
+    
+circle_area_safe(12)
+
+
+
+
+#part c
+def circle_area_safe(radius):
+    if(radius < 0):
+       raise ValueError('Radius must be postive')
+    else:
+        return circle_area(radius)
+    
+circle_area_safe(-12)
+
+
+
+
+#assignment 5
+#part a
+lines = open("students.tsv", 'r')
+
+for line in lines:
+    print(line)
+lines.close()
+
+
+#part b
+with open('students.tsv', 'r') as f:
+    for line in f:
+        print(line)
+        
+#part c
+students = {}
+with open('students.tsv', 'r') as f:
+    for line in f:
+        key,gender,algebra,history = line.rstrip().split("\t")
+        l = { key: {'gender':gender,'algebra':algebra,'history' : history}}
+        students.update(l)
+        
+students
+        
+        
+lines = open("students.tsv", 'r')
+students.clear()
+for line in lines:
+     key,gender,algebra,history = line.split()
+     students.update({ key: {'gender':gender,'algebra':algebra,'history' : history}})
+lines.close()
+students
+
+
+#part d
+f = open("student.txt","w+")
+for k, v in students.items():
+    line = "Student {0} scored {1} on the Algebra exam and {2} on the History exam\n".format(k,v["algebra"],v["history"] )
+    f.write(line)
+
+f.close()
